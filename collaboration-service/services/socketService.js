@@ -63,7 +63,7 @@ exports.handleSocketConnection = async (socket) => {
 			room.timeout = setTimeout(() => expireRoom(roomId), remainingTime);
 		}
 		room.users.add(socket.id);
-		console.log(`User ${socket} joined room ${roomId}`);
+		console.log(`User ${username} joined room ${roomId}`);
 		// Notify room about time remaining
 		callback({
 			init: firstToArrive, // Tell the client to initialize if first to arrive

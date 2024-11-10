@@ -70,11 +70,13 @@ services:
     volumes:
       - ./code-execution-service:/app
       - /app/node_modules
-      - /run/user/1000/docker.sock:/run/user/1000/docker.sock  # Rootless Docker socket path
+      - "${DOCKER_SOCKET_PATH}:/run/user/1000/docker.sock"  # Rootless Docker socket path
     networks:
       - peerprep-network
     env_file:
       - .env
+    # Unfortunately, privileged mode is still required https://github.com/ddev/ddev-gitlab-ci/issues/1
+    privileged: true
 
 networks:
   peerprep-network:
