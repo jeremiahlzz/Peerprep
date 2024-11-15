@@ -11,9 +11,9 @@ app.use(
 		origin: [
 			"http://localhost:3000",
 			"http://localhost:5000",
-			"https://peerprep-327190433280.asia-southeast1.run.app",
-			"https://peerprep-327190433280.asia-southeast1.run.app:3000",
-			"https://peerprep-327190433280.asia-southeast1.run.app:5000",
+			`https://peerprep-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app`,
+			`https://peerprep-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app:3000`,
+			`https://peerprep-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app:5000`,
 			"*",
 		],
 		credentials: true,

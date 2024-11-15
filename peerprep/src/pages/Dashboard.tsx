@@ -26,7 +26,7 @@ interface ActiveSession {
 const baseurl =
     process.env.REACT_APP_ENV === "development"
     ? "http://localhost:5001/getUserAttempts"
-    : "https://user-service-327190433280.asia-southeast1.run.app/getUserAttempts";
+    : `https://user-service-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app/getUserAttempts`;
 
 const Dashboard: React.FC = () => {
     const navigate = useNavigate();

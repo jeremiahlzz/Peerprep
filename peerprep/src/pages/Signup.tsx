@@ -32,7 +32,7 @@ const Signup: React.FC<SignupProps> = ({
             const url =
                 process.env.REACT_APP_ENV === "development"
                     ? "http://localhost:5001/register"
-                    : "https://user-service-327190433280.asia-southeast1.run.app/register";
+                    : `https://user-service-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app/register`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {

@@ -25,7 +25,7 @@ const Forgot: React.FC<ForgotProps> = ({
             const url =
                 process.env.REACT_APP_ENV === "development"
                     ? "http://localhost:5001/reset-password"
-                    : "https://user-service-327190433280.asia-southeast1.run.app/reset-password";
+                    : `https://user-service-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app/reset-password`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
