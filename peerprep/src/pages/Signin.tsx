@@ -30,7 +30,7 @@ const SignIn: React.FC<SigninProps> = ({
         const url =
             process.env.REACT_APP_ENV === "development"
                 ? "http://localhost:5001/login"
-                : `https://user-service-${process.env.CLOUD_RUN_PROJECT_ID}.asia-southeast1.run.app/login`;
+                : `https://user-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/login`;
 
         try {
             const response = await fetch(url, {
