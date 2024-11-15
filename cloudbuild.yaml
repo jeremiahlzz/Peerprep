@@ -17,7 +17,7 @@ steps:
       - "REACT_APP_FIREBASE_MEASUREMENT_ID=${_REACT_APP_FIREBASE_MEASUREMENT_ID}"
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "REACT_APP_ENV=${_NODE_ENV}"
-      - "CLOUD_RUN_PROJECT_ID=$PROJECT_ID"
+      - "CLOUD_RUN_PROJECT_ID=${PROJECT_ID}"
   # build the container image using the docker builder
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -60,7 +60,7 @@ steps:
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "MONGO_DB_URI=${_REACT_APP_MONGO_DB_URI}"
       - "REACT_APP_ENV=${_NODE_ENV}"
-      - "CLOUD_RUN_PROJECT_ID=$PROJECT_ID"
+      - "CLOUD_RUN_PROJECT_ID=${PROJECT_ID}"
   # build the service container image
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -124,7 +124,7 @@ steps:
       - "USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN}"
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "REACT_APP_ENV=${_NODE_ENV}"
-      - "CLOUD_RUN_PROJECT_ID=$PROJECT_ID"
+      - "CLOUD_RUN_PROJECT_ID=${PROJECT_ID}"
   # build the container image using the docker builder
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -188,7 +188,7 @@ steps:
       - "USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN}"
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "REACT_APP_ENV=${_NODE_ENV}"
-      - "CLOUD_RUN_PROJECT_ID=$PROJECT_ID"
+      - "CLOUD_RUN_PROJECT_ID=${PROJECT_ID}"
   # build the container image using the docker builder
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -252,7 +252,7 @@ steps:
       - "USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN}"
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "REACT_APP_ENV=${_NODE_ENV}"
-      - "CLOUD_RUN_PROJECT_ID=$PROJECT_ID"
+      - "CLOUD_RUN_PROJECT_ID=${PROJECT_ID}"
   # build the container image using the docker builder
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -316,7 +316,7 @@ steps:
       - "USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN}"
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "REACT_APP_ENV=${_NODE_ENV}"
-      - "CLOUD_RUN_PROJECT_ID=$PROJECT_ID"
+      - "CLOUD_RUN_PROJECT_ID=${PROJECT_ID}"
   # build the container image using the docker builder
   - name: "gcr.io/cloud-builders/docker"
     args:
