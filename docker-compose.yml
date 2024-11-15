@@ -70,7 +70,6 @@ services:
     volumes:
       - ./code-execution-service:/app
       - /app/node_modules
-      - "${DOCKER_SOCKET_PATH}:/run/user/1000/docker.sock"  # Rootless Docker socket path
     networks:
       - peerprep-network
     env_file:

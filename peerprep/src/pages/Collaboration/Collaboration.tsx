@@ -1,8 +1,7 @@
 import Editor from '@monaco-editor/react';
 import { editor as monacoEditor } from 'monaco-editor';
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { io, Socket } from 'socket.io-client';
 import { MonacoBinding } from 'y-monaco';
 import { SocketIOProvider } from 'y-socket.io';
 import * as Y from 'yjs';
