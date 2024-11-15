@@ -457,7 +457,7 @@ substitutions:
   _SERVICE_NAME_COLLAB: collaboration-service
   _SERVICE_NAME_CODE: code-execution-service
   _NODE_ENV: production
-  _PROJECT_ID: 327190433280
+  _PROJECT_ID: "327190433280"
 timeout: "1600s"
 options:
   logging: CLOUD_LOGGING_ONLY
