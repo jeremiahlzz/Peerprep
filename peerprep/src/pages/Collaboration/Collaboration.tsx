@@ -45,7 +45,7 @@ const Collaboration_Service: React.FC = () => {
   const url =
     process.env.REACT_APP_ENV === "development"
       ? "http://localhost:5001/saveCodeAttempt"
-      : `https://user-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/saveCodeAttempt`;
+      : `https://user-service-650801465582.asia-southeast1.run.app/saveCodeAttempt`;
   const location = useLocation();
   const navigate = useNavigate();
   const { socketId, roomId, difficulty, category, question } = location.state || {};

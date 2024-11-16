@@ -23,7 +23,7 @@ const UserHeader: React.FC = () => {
             const url =
                 process.env.REACT_APP_ENV === "development"
                     ? "http://localhost:5001/logout"
-                    : `https://user-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/logout`;
+                    : `https://user-service-650801465582.asia-southeast1.run.app/logout`;
             const response = await fetch(url, {
                 method: "POST",
                 credentials: "include",

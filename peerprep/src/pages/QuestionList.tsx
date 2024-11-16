@@ -45,7 +45,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
     const baseurl =
         process.env.REACT_APP_ENV === "development"
             ? "http://localhost:5000/question"
-            : `https://question-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/question`;
+            : `https://question-service-650801465582.asia-southeast1.run.app/question`;
     const navigate = useNavigate();
 
     const fetchQuestions = async () => {

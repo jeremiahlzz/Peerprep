@@ -15,7 +15,7 @@ if (accessToken) {
 export const URL =
 	process.env.REACT_APP_ENV === "development"
 		? "http://localhost:5003"
-		: `https://collaboration-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app`;
+		: `https://collaboration-service-650801465582.asia-southeast1.run.app`;
 
 export const socket = io(URL, {
 	query: {

@@ -56,7 +56,7 @@ const Profile: React.FC<ProfileProps> = ({
             const url =
                 process.env.REACT_APP_ENV === "development"
                     ? "http://localhost:5001/update-profile"
-                    : `https://user-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/update-profile`;
+                    : `https://user-service-650801465582.asia-southeast1.run.app/update-profile`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -105,7 +105,7 @@ const Profile: React.FC<ProfileProps> = ({
                 const url =
                     process.env.REACT_APP_ENV === "development"
                         ? "http://localhost:5001/delete-account"
-                        : `https://user-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/delete-account`;
+                        : `https://user-service-650801465582.asia-southeast1.run.app/delete-account`;
                 const response = await fetch(url, {
                     method: "DELETE",
                     headers: {
@@ -149,7 +149,7 @@ const Profile: React.FC<ProfileProps> = ({
             const url =
                 process.env.REACT_APP_ENV === "development"
                     ? "http://localhost:5001/reset-password"
-                    : `https://user-service-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app/reset-password`;
+                    : `https://user-service-650801465582.asia-southeast1.run.app/reset-password`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {

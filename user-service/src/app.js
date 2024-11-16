@@ -11,9 +11,9 @@ app.use(
 		origin: [
 			"http://localhost:3000",
 			"http://localhost:5000",
-			`https://peerprep-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app`,
-			`https://peerprep-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app:3000`,
-			`https://peerprep-${process.env.GOOGLE_CLOUD_PROJECT}.asia-southeast1.run.app:5000`,
+			`https://peerprep-650801465582.asia-southeast1.run.app`,
+			`https://peerprep-650801465582.asia-southeast1.run.app:3000`,
+			`https://peerprep-650801465582.asia-southeast1.run.app:5000`,
 			"*",
 		],
 		credentials: true,
