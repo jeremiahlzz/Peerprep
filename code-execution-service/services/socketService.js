@@ -21,7 +21,7 @@ exports.handleSocketConnection = async (socket) => {
         console.error('Execution error:', err);
         callback({
           status: "error",
-          error: err || "Code execution failed",
+          error: err.message || "Code execution failed",
           output: "",
           executionTime: 0,
           memoryUsed: 0,
