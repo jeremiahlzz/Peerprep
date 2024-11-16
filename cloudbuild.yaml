@@ -338,12 +338,8 @@ steps:
   # -------------- End Collaboration Service --------------
 
   # -------------- Start Code Execution Service --------------
-  - name: "gcr.io/cloud-builders/npm"
-    dir: "code-execution-service"
-    args: ["install"]
-  - name: "gcr.io/cloud-builders/npm"
-    dir: "code-execution-service"
-    args: ["run", "create-env"]
+  - name: docker/compose
+    args: ['-f', 'cloud-docker-compose.yml', 'up', '-d', 'code-execution-service']
     env:
       - "REACT_APP_FIREBASE_API_KEY=${_REACT_APP_FIREBASE_API_KEY}"
       - "REACT_APP_FIREBASE_AUTH_DOMAIN=${_REACT_APP_FIREBASE_AUTH_DOMAIN}"
@@ -368,54 +364,84 @@ steps:
       - "COMMIT_SHA=${COMMIT_SHA}"
       - "REACT_APP_ENV=${_NODE_ENV}"
       - "DOCKER_HOST=unix:///var/run/docker.sock"
-  # build the container image using the docker builder
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      [
-        "build",
-        "--build-arg",
-        "NODE_ENV=production",
-        "--build-arg",
-        "DOCKER_HOST=unix:///var/run/docker.sock",
-        "-t",
-        "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME_CODE}:$COMMIT_SHA",
-        "./code-execution-service",
-      ]
-  # push the container image to Container Registry (GCR)
-  - name: "gcr.io/cloud-builders/docker"
-    dir: "code-execution-service"
-    args:
-      [
-        "push",
-        "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME_CODE}:$COMMIT_SHA",
-      ]
-  # Deploy the container image to Cloud Run
-  - name: "gcr.io/cloud-builders/gcloud"
-    dir: "code-execution-service"
-    args:
-      - run
-      - deploy
-      - ${_SERVICE_NAME_CODE}
-      - --image=${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME_CODE}:$COMMIT_SHA
-      - --region=${_LOCATION}
-      - --set-env-vars
-      - |
-        REACT_APP_ENV=${_NODE_ENV},
-        USER_SERVICE_TYPE=${_USER_SERVICE_TYPE},
-        USER_SERVICE_PROJECT_ID=${_USER_SERVICE_PROJECT_ID},
-        USER_SERVICE_PRIVATE_KEY_ID=${_USER_SERVICE_PRIVATE_KEY_ID},
-        USER_SERVICE_PRIVATE_KEY=${_USER_SERVICE_PRIVATE_KEY},
-        USER_SERVICE_CLIENT_EMAIL=${_USER_SERVICE_CLIENT_EMAIL},
-        USER_SERVICE_CLIENT_ID=${_USER_SERVICE_CLIENT_ID},
-        USER_SERVICE_AUTH_URI=${_USER_SERVICE_AUTH_URI},
-        USER_SERVICE_TOKEN_URI=${_USER_SERVICE_TOKEN_URI},
-        USER_SERVICE_AUTH_PROVIDER_X509_CERT_URL=${_USER_SERVICE_AUTH_PROVIDER_X509_CERT_URL},
-        USER_SERVICE_CLIENT_X509_CERT_URL=${_USER_SERVICE_CLIENT_X509_CERT_URL},
-        USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN},
-        COMMIT_SHA=${COMMIT_SHA},
-        DOCKER_HOST=unix:///var/run/docker.sock
-      - --platform=managed
-      - --port=5004
+  # - name: "gcr.io/cloud-builders/npm"
+  #   dir: "code-execution-service"
+  #   args: ["install"]
+  # - name: "gcr.io/cloud-builders/npm"
+  #   dir: "code-execution-service"
+  #   args: ["run", "create-env"]
+  #   env:
+  #     - "REACT_APP_FIREBASE_API_KEY=${_REACT_APP_FIREBASE_API_KEY}"
+  #     - "REACT_APP_FIREBASE_AUTH_DOMAIN=${_REACT_APP_FIREBASE_AUTH_DOMAIN}"
+  #     - "REACT_APP_FIREBASE_DATABASE_URL=${_REACT_APP_FIREBASE_DATABASE_URL}"
+  #     - "REACT_APP_FIREBASE_PROJECT_ID=${_REACT_APP_FIREBASE_PROJECT_ID}"
+  #     - "REACT_APP_FIREBASE_STORAGE_BUCKET=${_REACT_APP_FIREBASE_STORAGE_BUCKET}"
+  #     - "REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${_REACT_APP_FIREBASE_MESSAGING_SENDER_ID}"
+  #     - "REACT_APP_FIREBASE_APP_ID=${_REACT_APP_FIREBASE_APP_ID}"
+  #     - "REACT_APP_FIREBASE_MEASUREMENT_ID=${_REACT_APP_FIREBASE_MEASUREMENT_ID}"
+  #     - "COMMIT_SHA=${COMMIT_SHA}"
+  #     - "USER_SERVICE_TYPE=${_USER_SERVICE_TYPE}"
+  #     - "USER_SERVICE_PROJECT_ID=${_USER_SERVICE_PROJECT_ID}"
+  #     - "USER_SERVICE_PRIVATE_KEY_ID=${_USER_SERVICE_PRIVATE_KEY_ID}"
+  #     - "USER_SERVICE_PRIVATE_KEY=${_USER_SERVICE_PRIVATE_KEY}"
+  #     - "USER_SERVICE_CLIENT_EMAIL=${_USER_SERVICE_CLIENT_EMAIL}"
+  #     - "USER_SERVICE_CLIENT_ID=${_USER_SERVICE_CLIENT_ID}"
+  #     - "USER_SERVICE_AUTH_URI=${_USER_SERVICE_AUTH_URI}"
+  #     - "USER_SERVICE_TOKEN_URI=${_USER_SERVICE_TOKEN_URI}"
+  #     - "USER_SERVICE_AUTH_PROVIDER_X509_CERT_URL=${_USER_SERVICE_AUTH_PROVIDER_X509_CERT_URL}"
+  #     - "USER_SERVICE_CLIENT_X509_CERT_URL=${_USER_SERVICE_CLIENT_X509_CERT_URL}"
+  #     - "USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN}"
+  #     - "COMMIT_SHA=${COMMIT_SHA}"
+  #     - "REACT_APP_ENV=${_NODE_ENV}"
+  #     - "DOCKER_HOST=unix:///run/user/1000/docker.sock"
+  # # build the container image using the docker builder
+  # - name: "gcr.io/cloud-builders/docker"
+  #   args:
+  #     [
+  #       "build",
+  #       "--build-arg",
+  #       "NODE_ENV=production",
+  #       "--build-arg",
+  #       "DOCKER_HOST=unix:///var/run/docker.sock",
+  #       "-t",
+  #       "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME_CODE}:$COMMIT_SHA",
+  #       "./code-execution-service",
+  #     ]
+  # # push the container image to Container Registry (GCR)
+  # - name: "gcr.io/cloud-builders/docker"
+  #   dir: "code-execution-service"
+  #   args:
+  #     [
+  #       "push",
+  #       "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME_CODE}:$COMMIT_SHA",
+  #     ]
+  # # Deploy the container image to Cloud Run
+  # - name: "gcr.io/cloud-builders/gcloud"
+  #   dir: "code-execution-service"
+  #   args:
+  #     - run
+  #     - deploy
+  #     - ${_SERVICE_NAME_CODE}
+  #     - --image=${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME_CODE}:$COMMIT_SHA
+  #     - --region=${_LOCATION}
+  #     - --set-env-vars
+  #     - |
+  #       REACT_APP_ENV=${_NODE_ENV},
+  #       USER_SERVICE_TYPE=${_USER_SERVICE_TYPE},
+  #       USER_SERVICE_PROJECT_ID=${_USER_SERVICE_PROJECT_ID},
+  #       USER_SERVICE_PRIVATE_KEY_ID=${_USER_SERVICE_PRIVATE_KEY_ID},
+  #       USER_SERVICE_PRIVATE_KEY=${_USER_SERVICE_PRIVATE_KEY},
+  #       USER_SERVICE_CLIENT_EMAIL=${_USER_SERVICE_CLIENT_EMAIL},
+  #       USER_SERVICE_CLIENT_ID=${_USER_SERVICE_CLIENT_ID},
+  #       USER_SERVICE_AUTH_URI=${_USER_SERVICE_AUTH_URI},
+  #       USER_SERVICE_TOKEN_URI=${_USER_SERVICE_TOKEN_URI},
+  #       USER_SERVICE_AUTH_PROVIDER_X509_CERT_URL=${_USER_SERVICE_AUTH_PROVIDER_X509_CERT_URL},
+  #       USER_SERVICE_CLIENT_X509_CERT_URL=${_USER_SERVICE_CLIENT_X509_CERT_URL},
+  #       USER_SERVICE_UNIVERSE_DOMAIN=${_USER_SERVICE_UNIVERSE_DOMAIN},
+  #       COMMIT_SHA=${COMMIT_SHA},
+  #       DOCKER_HOST=unix:///var/run/docker.sock
+  #     - --platform=managed
+  #     - --port=5004
   # -------------- End Code Execution Service --------------
 images:
   - "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA"
