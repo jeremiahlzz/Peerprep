@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  code-execution-service:
+    build: ./code-execution-service
+    environment:
+      - DOCKER_HOST=unix:///run/user/1000/docker.sock  # Use rootless Docker socket
+    ports:
+      - "5004:5004"
+    volumes:
+      - ./code-execution-service:/app
+      - /app/node_modules
+    networks:
+      - peerprep-network
+    env_file:
+      - .env
+    # Unfortunately, privileged mode is still required https://github.com/ddev/ddev-gitlab-ci/issues/1
+    privileged: true
+networks:
+  default:
+    external:
+      name: cloudbuild
